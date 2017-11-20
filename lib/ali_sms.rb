@@ -5,12 +5,12 @@ require 'openssl'
 require 'base64'
 require 'rest-client'
 
-require "ali_sms/version"
-require "ali_sms/configuration"
-require "ali_sms/utils"
-require "ali_sms/params"
-require "ali_sms/sign"
-require "ali_sms/send_sms"
+require_relative "ali_sms/version"
+require_relative "ali_sms/configuration"
+require_relative "ali_sms/utils"
+require_relative "ali_sms/params"
+require_relative "ali_sms/sign"
+require_relative "ali_sms/send_sms"
 
 
 module AliSms

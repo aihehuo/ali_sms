@@ -8,12 +8,21 @@ module AliSms
     end
 
     def excute
-      RestClient.get("#{AliSms.configuration.host}?Signature=#{sign}&#{encoded_string}")
+      puts url
+      begin
+        RestClient.get(url)
+      rescue RestClient::ExceptionWithResponse => err
+        err.response
+      end
     end
 
     private
 
     attr_reader :phone_number, :template_code, :template_param, :sign_name
+
+    def url
+      @url ||= "#{AliSms.configuration.host}?Signature=#{sign}&#{encoded_string}"
+    end
 
     def sign
       @sign ||= Sign.new(string_to_sign).call
@@ -28,7 +37,7 @@ module AliSms
     end
 
     def params_instance
-      @params_instance ||= Params.new(phone_number, sign_name, template_code, template_param)
+      @params_instance ||= Params.new('SendSms', phone_number, sign_name, template_code, template_param)
     end
   end
 end

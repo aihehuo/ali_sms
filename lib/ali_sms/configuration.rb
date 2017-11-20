@@ -7,7 +7,7 @@ module AliSms
       @format = 'JSON'
       @signature_method = 'HMAC-SHA1'
       @signature_version = '1.0'
-      @version = '2017-11-20'
+      @version = '2017-05-25'
       @region_id = 'cn-hangzhou'
       @sign_name = '爱合伙'
       @host = 'http://dysmsapi.aliyuncs.com'
