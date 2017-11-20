@@ -9,15 +9,15 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Bran Liang"]
   spec.email         = ["lby89757@hotmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{阿里云短信ruby SDK.}
+  spec.description   = %q{功能包括发送短信，查询短信发送状况，查询剩余短信数量。}
+  spec.homepage      = "http://www.liangboyuan.pub"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata["allowed_push_host"] = "https://rubygems.org"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
