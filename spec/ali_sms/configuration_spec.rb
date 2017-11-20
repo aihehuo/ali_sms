@@ -1,6 +1,6 @@
 RSpec.describe AliSms::Configuration do
   it "has default values" do
-    expect(AliSms.configuration.version).to eq('1.0')
+    expect(AliSms.configuration.version).to eq('2017-11-20')
   end
 
   it "can be configured" do
