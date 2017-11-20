@@ -2,17 +2,20 @@ module AliSms
   class Params
     include Utils
     attr_reader :action, :phone_number, :sign_name, :template_code, :template_param
+    attr_accessor :signature_nonce, :timestamp
 
-    def initialize(action, phone_number, sign_name, template_code, template_param = {})
+    def initialize(action, phone_number, sign_name, template_code, template_param = {}.to_json)
       @action = action
       @phone_number = phone_number
       @sign_name = sign_name
       @template_code = template_code
-      @template_param = template_param.to_json
+      @template_param = template_param
+      @signature_nonce = SecureRandom.uuid
+      @timestamp = Time.now.utc.iso8601
     end
 
     def call
-      "GET&#{special_url_encoding('/')}&#{special_url_encoding(encode_string)}"
+      "GET&#{special_url_encoding('/')}&#{special_url_encoding(encode_string(params))}"
     end
 
     private
@@ -21,10 +24,10 @@ module AliSms
       @params ||= {
         # 系统参数
         'SignatureMethod' => AliSms.configuration.signature_method,
-        'SignatureNonce' => SecureRandom.uuid,
+        'SignatureNonce' => signature_nonce,
         'AccessKeyId' => AliSms.configuration.access_key_id,
         'SignatureVersion' => AliSms.configuration.signature_version,
-        'Timestamp' => Time.now.utc.iso8601,
+        'Timestamp' => timestamp,
         'Format' => AliSms.configuration.format,
         # 业务API参数
         'Action' => action,
@@ -37,9 +40,9 @@ module AliSms
       }.sort.to_h
     end
 
-    def encoded_string
+    def encode_string(params_hash)
       @encoded_string ||= [].tap do |collection|
-        params.each do |k, v|
+        params_hash.each do |k, v|
           collection << "#{special_url_encoding(k)}=#{special_url_encoding(v)}"
         end
       end.join('&')
