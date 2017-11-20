@@ -14,8 +14,16 @@ module AliSms
       @timestamp = Time.now.utc.iso8601
     end
 
-    def call
-      "GET&#{special_url_encoding('/')}&#{special_url_encoding(encode_string(params))}"
+    def string_to_sign
+      "GET&#{special_url_encoding('/')}&#{special_url_encoding(encoded_string)}"
+    end
+
+    def encoded_string
+      @encoded_string ||= [].tap do |collection|
+        params.each do |k, v|
+          collection << "#{special_url_encoding(k)}=#{special_url_encoding(v)}"
+        end
+      end.join('&')
     end
 
     private
@@ -38,14 +46,6 @@ module AliSms
         'TemplateParam' => template_param,
         'TemplateCode' => template_code
       }.sort.to_h
-    end
-
-    def encode_string(params_hash)
-      @encoded_string ||= [].tap do |collection|
-        params_hash.each do |k, v|
-          collection << "#{special_url_encoding(k)}=#{special_url_encoding(v)}"
-        end
-      end.join('&')
     end
   end
 end
