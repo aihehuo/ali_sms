@@ -1,5 +1,14 @@
 require "ali_sms/version"
 
 module AliSms
-  # Your code goes here...
+  class << self
+    attr_accessor :configuration
+
+    def configure
+      configuration ||= Configuration.new
+      yield(configuration) if block_given?
+    end
+  end
+
+  configure
 end
