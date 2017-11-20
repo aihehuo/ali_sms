@@ -33,7 +33,7 @@ module AliSms
     private
 
     def check_configuration!
-      raise 'access_key或access_key_id未设置!' unless configuration.access_secret && configuration.access_key_id
+      raise 'access_key或access_key_id未设置!' unless (configuration.access_secret && configuration.access_key_id)
     end
 
     def check_phone!(phone_number)

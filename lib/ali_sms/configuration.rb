@@ -1,7 +1,7 @@
 module AliSms
   class Configuration
     attr_reader :signature_method
-    attr_accessor :access_key_id, :access_secret, :format, :signature_version, :version, :region_id, :sign_name
+    attr_accessor :access_key_id, :access_secret, :format, :signature_version, :version, :region_id, :sign_name, :host
 
     def initialize
       @format = 'JSON'
