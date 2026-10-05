@@ -8,7 +8,6 @@ module AliSms
     end
 
     def excute
-      puts url
       begin
         RestClient.get(url)
       rescue RestClient::ExceptionWithResponse => err
